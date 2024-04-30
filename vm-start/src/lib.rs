@@ -22,8 +22,7 @@ impl Context for MyPlugin {}
 
 pub struct MyRootContext;
 
-#[derive(serde::Deserialize)]
-#[derive(Debug)]
+#[derive(serde::Deserialize, Debug)]
 struct MyVmConfiguration {
     pub key: String,
 }
@@ -36,7 +35,8 @@ impl RootContext for MyRootContext {
     fn on_vm_start(&mut self, _vm_configuration_size: usize) -> bool {
         let vm_configuration = self.get_vm_configuration().unwrap();
 
-        let parsed_vm_configuration = serde_json::from_slice::<MyVmConfiguration>(&vm_configuration).unwrap();
+        let parsed_vm_configuration =
+            serde_json::from_slice::<MyVmConfiguration>(&vm_configuration).unwrap();
 
         debug!("vm_configuration: {:?}", parsed_vm_configuration);
 

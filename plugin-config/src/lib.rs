@@ -14,8 +14,7 @@ proxy_wasm::main! {{
 
 pub struct MyRootContext;
 
-#[derive(serde::Deserialize)]
-#[derive(Debug)]
+#[derive(serde::Deserialize, Debug)]
 struct MyPluginConfiguration {
     pub key: String,
 }
@@ -24,7 +23,8 @@ impl RootContext for MyRootContext {
     fn on_configure(&mut self, _plugin_configuration_size: usize) -> bool {
         let plugin_configuration = self.get_plugin_configuration().unwrap();
 
-        let parsed_plugin_configuration = serde_json::from_slice::<MyPluginConfiguration>(&plugin_configuration).unwrap();
+        let parsed_plugin_configuration =
+            serde_json::from_slice::<MyPluginConfiguration>(&plugin_configuration).unwrap();
 
         debug!("plugin_configuration: {:?}", parsed_plugin_configuration);
 

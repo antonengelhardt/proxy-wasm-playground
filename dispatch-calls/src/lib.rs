@@ -1,11 +1,8 @@
 // proxy-wasm
+use log::{debug, warn};
 use proxy_wasm::traits::*;
 use proxy_wasm::types::*;
-
 use std::time::Duration;
-
-use log::debug;
-use log::warn;
 
 // This is the initial entry point of the plugin.
 proxy_wasm::main! {{
@@ -25,13 +22,13 @@ impl HttpContext for MyPlugin {
                 (":method", "GET"),
                 (":path", "/"),
                 (":authority", "www.google.com"),
-                (":scheme", "https")
+                (":scheme", "https"),
             ],
             None,
             vec![],
             Duration::from_secs(5),
         ) {
-            Ok(_) => Action::Pause,
+            Ok(_) => Action::Continue,
             Err(e) => {
                 warn!("Failed to dispatch_http_call: {:?}", e);
                 Action::Continue
