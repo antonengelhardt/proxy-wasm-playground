@@ -27,7 +27,7 @@ static_resources:
                   typed_config:
                     "@type": type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm
                     config:
-                      name: "wasm-oidc-plugin"
+                      name: "proxy-wasm-playground"
                       configuration:
                         "@type": "type.googleapis.com/google.protobuf.StringValue"
                         value: |
