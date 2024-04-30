@@ -1,0 +1,11 @@
+# This is where is store my personal notes
+notes
+
+# rust
+target
+
+# env (secrets)
+.env
+
+# peformance
+/performance
