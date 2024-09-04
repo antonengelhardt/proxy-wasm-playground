@@ -1,5 +1,5 @@
 // proxy-wasm
-use log::warn;
+use log::{warn,debug};
 use proxy_wasm::traits::*;
 use proxy_wasm::types::*;
 use std::time::Duration;
@@ -44,6 +44,11 @@ impl Context for MyPlugin {
             .get_http_call_response_body(0, body_size)
             .unwrap_or_default();
 
+        let google_server_name = self
+            .get_http_call_response_header("server")
+            .unwrap_or("unknown".to_string());
+        debug!("google server name: {}", google_server_name);
+
         // Convert the body to a string and log it.
         let parsed_body = String::from_utf8_lossy(&_body);
 
@@ -56,6 +61,7 @@ impl Context for MyPlugin {
             "x-contains-some-other-weird-stuff",
             &contains_some_other_weird_stuff.to_string(),
         );
+        self.add_http_request_header("x-google-server-name", &google_server_name);
 
         self.resume_http_request();
     }
