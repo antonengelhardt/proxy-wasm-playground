@@ -7,4 +7,5 @@ You should see two headers (next to other headers) that look like this:
 ```
 "X-Contains-Google-Apis": "true",
 "X-Contains-Some-Other-Weird-Stuff": "false",
+"X-Google-Server-Name": "gws",
 ```

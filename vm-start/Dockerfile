@@ -10,7 +10,7 @@ RUN cargo build --target=wasm32-wasi --release
 
 ##################################################
 
-FROM envoyproxy/envoy:v1.29-latest
+FROM envoyproxy/envoy:v1.30-latest
 
 COPY --from=builder /target/wasm32-wasi/release/vm_start.wasm /etc/envoy/proxy-wasm-plugins/vm_start.wasm
 
