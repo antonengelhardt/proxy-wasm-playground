@@ -1,6 +1,6 @@
 [package]
 publish = false
-name = "wasm-playground"
+name = "dependent-header"
 version = "0.0.1"
 authors = ["Anton Engelhardt <antoncengelhardt@icloud.com>"]
 license = "Apache-2.0"
