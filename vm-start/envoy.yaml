@@ -27,12 +27,12 @@ static_resources:
                   typed_config:
                     "@type": type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm
                     config:
-                      name: "proxy-wasm-playground"
+                      name: "vm_start"
                       vm_config:
                         runtime: "envoy.wasm.runtime.v8"
                         code:
                           local:
-                            filename: "/etc/envoy/proxy-wasm-plugins/wasm_playground.wasm"
+                            filename: "/etc/envoy/proxy-wasm-plugins/vm_start.wasm"
                         configuration:
                           "@type": "type.googleapis.com/google.protobuf.StringValue"
                           value: |
