@@ -15,7 +15,7 @@ crate-type = ["cdylib"]
 log = "0.4.27"
 
 # proxy-wasm
-proxy-wasm = "0.2.2"
+proxy-wasm = "0.2.3"
 
 [profile.release]
 lto = true
