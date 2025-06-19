@@ -4,14 +4,14 @@ COPY src/ src/
 COPY Cargo.toml Cargo.toml
 COPY Cargo.lock Cargo.lock
 
-RUN rustup target add wasm32-wasi
+RUN rustup target add wasm32-wasip1
 
-RUN cargo build --target=wasm32-wasi --release
+RUN cargo build --target=wasm32-wasip1 --release
 
 ##################################################
 
 FROM envoyproxy/envoy:v1.30-latest
 
-COPY --from=builder /target/wasm32-wasi/release/add_header.wasm /etc/envoy/proxy-wasm-plugins/add_header.wasm
+COPY --from=builder /target/wasm32-wasip1/release/add_header.wasm /etc/envoy/proxy-wasm-plugins/add_header.wasm
 
 CMD [ "envoy", "-c", "/etc/envoy/envoy.yaml" ]

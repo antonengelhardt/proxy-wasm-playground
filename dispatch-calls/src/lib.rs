@@ -28,10 +28,10 @@ impl HttpContext for MyPlugin {
             vec![],
             Duration::from_secs(5),
         ) {
-            Ok(_) => Action::Continue,
+            Ok(_) => Action::Pause,
             Err(e) => {
                 warn!("Failed to dispatch_http_call: {:?}", e);
-                Action::Continue
+                Action::Pause
             }
         }
     }
@@ -40,9 +40,23 @@ impl HttpContext for MyPlugin {
 impl Context for MyPlugin {
     fn on_http_call_response(&mut self, _token_id: u32, _: usize, body_size: usize, _: usize) {
         let headers = self.get_http_call_response_headers();
-        let _body = self.get_http_call_response_body(0, body_size);
-
         debug!("on_http_call_response: {:?}", headers);
+
+        let content_type = self.get_http_call_response_header("content-type").unwrap();
+        debug!("content-type: {:?}", content_type);
+
+        let server = self.get_http_call_response_header_bytes("server").unwrap();
+        let server_str = String::from_utf8(server).unwrap();
+        debug!("server: {:?}", server_str);
+
+        let body = self.get_http_call_response_body(0, body_size).unwrap();
+        let body_str = String::from_utf8(body).unwrap();
+        debug!("body: {:?}", body_str);
+
+        let trailer = self.get_http_call_response_trailers();
+        debug!("trailer: {:?}", trailer);
+
+        self.resume_http_request();
 
         // Do something with the response
     }

@@ -1,3 +1,4 @@
+use log::info;
 // proxy-wasm
 use log::{warn,debug};
 use proxy_wasm::traits::*;
@@ -40,6 +41,7 @@ impl HttpContext for MyPlugin {
 
 impl Context for MyPlugin {
     fn on_http_call_response(&mut self, _token_id: u32, _: usize, body_size: usize, _: usize) {
+
         let _body = self
             .get_http_call_response_body(0, body_size)
             .unwrap_or_default();
@@ -53,6 +55,28 @@ impl Context for MyPlugin {
         let parsed_body = String::from_utf8_lossy(&_body);
 
         let contains_google_apis = parsed_body.contains("googleapis");
+
+        if contains_google_apis {
+            match self.dispatch_http_call(
+                "google",
+                vec![
+                    (":method", "GET"),
+                    (":path", "/"),
+                    (":authority", "www.google.com"),
+                    (":scheme", "https"),
+                ],
+                None,
+                vec![],
+                Duration::from_secs(5),
+            ) {
+                Ok(_) => {
+                    info!("dispatched another http call")
+                },
+                Err(e) => {
+                    warn!("Failed to second dispatch_http_call: {:?}", e);
+                }
+            }
+        }
 
         let contains_some_other_weird_stuff = parsed_body.contains("some_other_weird_stuff");
 

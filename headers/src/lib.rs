@@ -22,6 +22,8 @@ impl HttpContext for MyPlugin {
         debug!("on_http_request_headers: {:?}", headers);
         debug!("on_http_request_headers: path: {:?}", path);
 
+        
+
         Action::Continue
     }
 }
