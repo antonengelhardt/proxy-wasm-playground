@@ -12,7 +12,7 @@ crate-type = ["cdylib"]
 [dependencies]
 
 # log
-log = "0.4.27"
+log = "0.4.28"
 
 # proxy-wasm
 proxy-wasm = "0.2.4"
