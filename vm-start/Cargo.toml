@@ -12,7 +12,7 @@ crate-type = ["cdylib"]
 [dependencies]
 
 # log
-log = "0.4.28"
+log = "0.4.29"
 
 # serde
 serde = { version = "1.0.228", features = ["derive"] }
