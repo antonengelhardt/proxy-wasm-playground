@@ -21,8 +21,6 @@ updates:
       - "dependencies"
     schedule:
       interval: "daily"
-    reviewers:
-      - "antonengelhardt"
     assignees:
       - "antonengelhardt"
     commit-message:
